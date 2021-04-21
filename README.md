@@ -30,3 +30,16 @@ Wszystkie zadania muszą zostać dołączone do projektu bazowego - jeżeli chod
 ## Dzień 4 
 
 Prezentacja pracy przed komisja
+
+## Aplikacja nad która pracujemy
+
+Aplikacja, która będzie tworzona, będzie aplikacja dosyć prostą. Będzie to apka do zarządzania zadaniami z możlowościa drobnej customizacji oraz odpowiedniego otagowania poszczególnych zadań.
+
+### Wymagania biznesowe aplikacji (ogólne)
+
+- użytkownik może się zalogować,
+- użytkownik może założyć konto,
+- użytkownik może dodać, edytować, usuwać, zmieniać statusy oraz wyświetlać zadania do wykonania,
+- użytkownik może wykorzystywać zdefiniowane statusy,
+- użytkownik może dodać, edytować, usuwać oraz wyświetlać statusy zadań,
+- użytkownik może zarządzać swoimi zadaniami
