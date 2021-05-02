@@ -49,5 +49,43 @@ namespace WebApi.Controllers
             var result = await Task.Factory.StartNew(() => res);
             return result;
         }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get(int id)
+        {
+            var res = await GetTask(id);
+
+            if (res == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(res);
+        }
+
+        private async Task<WebApi.Contracts.Task> GetTask(int id)
+        {
+            var result = await Task.Factory.StartNew(() => {
+                return new WebApi.Contracts.Task
+                {
+                    Id = id,
+                    CreationDate = DateTime.Now.AddDays(id),
+                    ModificationDate = DateTime.Now.AddDays(id + 1),
+                    Description = $"Description",
+                    Name = $"Name",
+                    TaskState = new WebApi.Contracts.TaskState
+                    {
+                        Id = id,
+                        Description = $"Description",
+                        Name = $"Name",
+                        FontColor = $"#001122",
+                        BackgroundColor = $"#002233",
+                    }
+                };
+            });
+            return result;
+        }
     }
 }
