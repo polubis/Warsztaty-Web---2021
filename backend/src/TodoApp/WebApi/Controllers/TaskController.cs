@@ -103,5 +103,33 @@ namespace WebApi.Controllers
             var result = await Task.Factory.StartNew(() => 1);
             return result;
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Put(int id, [FromBody] Contracts.Task payload)
+        {
+            if (!(await TaskExists(id)))
+            {
+                return NotFound();
+            }
+
+            await Update(id, payload);
+
+            return NoContent();
+        }
+
+        private async Task<bool> TaskExists(int id)
+        {
+            var result = await Task.Factory.StartNew(() => true);
+            return result;
+        }
+
+        private async Task<bool> Update(int id, Contracts.Task payload)
+        {
+            var result = await Task.Factory.StartNew(() => true);
+            return result;
+        }
     }
 }
