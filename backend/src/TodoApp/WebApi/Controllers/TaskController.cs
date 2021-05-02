@@ -87,5 +87,21 @@ namespace WebApi.Controllers
             });
             return result;
         }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Post([FromBody] Contracts.Task payload)
+        {
+            int id = await CreatTask(payload);
+
+            return CreatedAtAction(nameof(Get), new { id = id });
+        }
+
+        private async Task<int> CreatTask(Contracts.Task payload)
+        {
+            var result = await Task.Factory.StartNew(() => 1);
+            return result;
+        }
     }
 }
