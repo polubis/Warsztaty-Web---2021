@@ -115,7 +115,7 @@ namespace WebApi.Controllers
                 return NotFound();
             }
 
-            await Update(id, payload);
+            await UpdateTask(id, payload);
 
             return NoContent();
         }
@@ -126,7 +126,28 @@ namespace WebApi.Controllers
             return result;
         }
 
-        private async Task<bool> Update(int id, Contracts.Task payload)
+        private async Task<bool> UpdateTask(int id, Contracts.Task payload)
+        {
+            var result = await Task.Factory.StartNew(() => true);
+            return result;
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!(await TaskExists(id)))
+            {
+                return NotFound();
+            }
+
+            await DeleteTask(id);
+
+            return NoContent();
+        }
+
+        private async Task<bool> DeleteTask(int id)
         {
             var result = await Task.Factory.StartNew(() => true);
             return result;
