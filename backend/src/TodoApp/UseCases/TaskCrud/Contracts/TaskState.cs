@@ -1,4 +1,4 @@
-﻿namespace WebApi.Contracts
+﻿namespace UseCases.TaskCrud.Contracts
 {
     public class TaskState
     {

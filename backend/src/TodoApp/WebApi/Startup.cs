@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UseCases.TaskCrud;
+using UseCases.TaskCrud.ApplicationLogic;
 
 namespace WebApi
 {
@@ -32,6 +34,14 @@ namespace WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
+
+            RegisterServices(services);
+        }
+
+        private void RegisterServices(IServiceCollection services)
+        {
+            services.AddScoped<ITaskCrudCommands, TaskCrudCommands>();
+            services.AddScoped<ITaskCrudQueries, TaskCrudQueries>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
