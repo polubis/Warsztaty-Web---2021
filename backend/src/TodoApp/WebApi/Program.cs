@@ -23,11 +23,18 @@ namespace WebApi
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var optionsBuilder = new DbContextOptionsBuilder<TodoAppDbContext>();
-                    optionsBuilder.UseInMemoryDatabase("TodoAppDb");
-                    /*await */using var ctxt = new TodoAppDbContext(optionsBuilder.Options);
-                    //var context = services.GetRequiredService<TodoAppDbContext>();
-                    /*await*/ DbInitializer.Initialize(ctxt);
+                    var configuration = services.GetRequiredService<IConfiguration>();
+
+                    if (!configuration.GetValue<bool>("UseSqlServerDb"))
+                    {
+                        var optionsBuilder = new DbContextOptionsBuilder<TodoAppDbContext>();
+                        optionsBuilder.UseInMemoryDatabase("TodoAppDb");
+                        /*await */
+                        using var ctxt = new TodoAppDbContext(optionsBuilder.Options);
+                        //var context = services.GetRequiredService<TodoAppDbContext>();
+                        /*await*/
+                        DbInitializer.Initialize(ctxt);
+                    }
                 }
                 catch (Exception ex)
                 {

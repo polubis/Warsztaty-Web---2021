@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using UseCases.TaskCrud.Contracts;
+using Microsoft.Extensions.Configuration;
 
 namespace Persistance.Model
 {
@@ -12,11 +13,9 @@ namespace Persistance.Model
         private readonly IMapper mapper;
         private DbContextOptionsBuilder<TodoAppDbContext> optionsBuilder;
 
-        public TaskCrudRepository(IMapper mapper)
+        public TaskCrudRepository(IMapper mapper, IConfiguration configuration)
         {
-            optionsBuilder = new DbContextOptionsBuilder<TodoAppDbContext>();
-            optionsBuilder.UseInMemoryDatabase("TodoAppDb");
-
+            optionsBuilder  = OptionsBuilderWrapper.GetDbContextOptionsBuilder(configuration);
             this.mapper = mapper;
         }
 

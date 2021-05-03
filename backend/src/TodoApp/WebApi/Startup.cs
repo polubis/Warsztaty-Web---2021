@@ -31,7 +31,8 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<TodoAppDbContext>(opt => opt.UseInMemoryDatabase("TodoAppDb"));
+            // Uncomment for running Migrations 
+            // services.AddDbContext<TodoAppDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
 
             services.AddAutoMapper(typeof(TodoAppDbContext));
 
