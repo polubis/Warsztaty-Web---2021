@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Model;
-using UseCases.TaskCrud.Contracts;
+using UseCases.TaskCrud.Contracts.Task;
+using UseCases.TaskCrud.Contracts.TaskState;
 
 namespace Persistance.DataAccess
 {

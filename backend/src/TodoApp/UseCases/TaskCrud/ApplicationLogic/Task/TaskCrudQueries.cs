@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using UseCases.TaskCrud.Contracts;
+using UseCases.TaskCrud.Contracts.Task;
 
-namespace UseCases.TaskCrud.ApplicationLogic
+namespace UseCases.TaskCrud.ApplicationLogic.Task
 {
     public class TaskCrudQueries : ITaskCrudQueries
     {

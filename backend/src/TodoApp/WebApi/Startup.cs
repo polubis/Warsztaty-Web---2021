@@ -10,12 +10,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Persistance.DataAccess;
 using Persistance.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UseCases.TaskCrud.ApplicationLogic;
-using UseCases.TaskCrud.Contracts;
+using UseCases.TaskCrud.ApplicationLogic.Task;
+using UseCases.TaskCrud.ApplicationLogic.TaskState;
+using UseCases.TaskCrud.Contracts.Task;
+using UseCases.TaskCrud.Contracts.TaskState;
 
 namespace WebApi
 {
@@ -47,9 +45,13 @@ namespace WebApi
 
         private void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<ITaskCrudCommands, TaskCrudCommands>();
-            services.AddScoped<ITaskCrudQueries, TaskCrudQueries>();
+            services.AddScoped<UseCases.TaskCrud.Contracts.Task.ITaskCrudCommands, TaskCrudCommands>();
+            services.AddScoped<UseCases.TaskCrud.Contracts.Task.ITaskCrudQueries, TaskCrudQueries>();
             services.AddScoped<ITaskCrudRepository, TaskCrudRepository>();
+
+            services.AddScoped<UseCases.TaskCrud.Contracts.TaskState.ITaskStateCrudCommands, TaskStateCrudCommands>();
+            services.AddScoped<UseCases.TaskCrud.Contracts.TaskState.ITaskStateCrudQueries, TaskStateCrudQueries>();
+            services.AddScoped<ITaskStateCrudRepository, TaskStateCrudRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

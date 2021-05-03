@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace UseCases.TaskCrud.Contracts
+namespace UseCases.TaskCrud.Contracts.Task
 {
     public interface ITaskCrudQueries
     {

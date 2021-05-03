@@ -2,21 +2,21 @@
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using UseCases.TaskCrud.Contracts.Task;
+using UseCases.TaskCrud.Contracts.TaskState;
 
 namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TaskCrudController : ControllerBase
+    public class TaskStateCrudController : ControllerBase
     {
-        private readonly ILogger<TaskCrudController> logger;
-        private readonly ITaskCrudCommands commands;
-        private readonly ITaskCrudQueries queries;
+        private readonly ILogger<TaskStateCrudController> logger;
+        private readonly ITaskStateCrudCommands commands;
+        private readonly ITaskStateCrudQueries queries;
 
-        public TaskCrudController(ILogger<TaskCrudController> logger,
-            ITaskCrudCommands commands,
-            ITaskCrudQueries queries)
+        public TaskStateCrudController(ILogger<TaskStateCrudController> logger,
+            ITaskStateCrudCommands commands,
+            ITaskStateCrudQueries queries)
         {
             this.logger = logger;
             this.commands = commands;
@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var res = await queries.GetTasks();
+            var res = await queries.GetTaskStates();
             return Ok(res);
         }
 
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
-            var res = await queries.GetTask(id);
+            var res = await queries.GetTaskState(id);
 
             if (res == null)
             {
@@ -49,7 +49,7 @@ namespace WebApi.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody] TaskCommandDto payload)
+        public async Task<IActionResult> Post([FromBody] TaskStateCommandDto payload)
         {
             int id = await commands.CreatTask(payload);
 
@@ -61,9 +61,9 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(int id, [FromBody] TaskCommandDto payload)
+        public async Task<IActionResult> Put(int id, [FromBody] TaskStateCommandDto payload)
         {
-            if (!(await queries.TaskExists(id)))
+            if (!(await queries.TaskStateExists(id)))
             {
                 return NotFound();
             }
@@ -79,7 +79,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
-            if (!(await queries.TaskExists(id)))
+            if (!(await queries.TaskStateExists(id)))
             {
                 return NotFound();
             }

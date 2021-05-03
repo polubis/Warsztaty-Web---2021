@@ -1,8 +1,7 @@
-﻿namespace UseCases.TaskCrud.Contracts
+﻿namespace UseCases.TaskCrud.Contracts.TaskState
 {
-    public class TaskStateQueryDto
+    public class TaskStateCommandDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string FontColor { get; set; }

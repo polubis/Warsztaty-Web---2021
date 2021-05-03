@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UseCases.TaskCrud.Contracts
+namespace UseCases.TaskCrud.Contracts.Task
 {
     public class TaskCommandDto
     {
