@@ -1,25 +1,31 @@
 ﻿using System.Threading.Tasks;
+using UseCases.TaskCrud.Contracts;
 
 namespace UseCases.TaskCrud.ApplicationLogic
 {
     public class TaskCrudCommands :  ITaskCrudCommands
     {
-        public async Task<int> CreatTask(Contracts.Task payload)
+        private readonly ITaskCrudRepository taskCrudRepository;
+
+        public TaskCrudCommands(ITaskCrudRepository taskCrudRepository)
         {
-            var result = await Task.Factory.StartNew(() => 1);
-            return result;
+            this.taskCrudRepository = taskCrudRepository;
         }
 
-        public async Task<bool> DeleteTask(int id)
+        public async Task<int> CreatTask(Contracts.TaskCommandDto payload)
         {
-            var result = await Task.Factory.StartNew(() => true);
-            return result;
+            var res = await taskCrudRepository.CreatTask(payload);
+            return res;
         }
 
-        public async Task<bool> UpdateTask(int id, Contracts.Task payload)
+        public async Task DeleteTask(int id)
         {
-            var result = await Task.Factory.StartNew(() => true);
-            return result;
+            await taskCrudRepository.DeleteTask(id);
+        }
+
+        public async Task UpdateTask(int id, Contracts.TaskCommandDto payload)
+        {
+            await taskCrudRepository.UpdateTask(id, payload);
         }
     }
 }

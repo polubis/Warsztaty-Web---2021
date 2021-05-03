@@ -2,17 +2,20 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Persistance.DataAccess;
+using Persistance.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UseCases.TaskCrud;
 using UseCases.TaskCrud.ApplicationLogic;
+using UseCases.TaskCrud.Contracts;
 
 namespace WebApi
 {
@@ -28,11 +31,14 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<TodoAppDbContext>(opt => opt.UseInMemoryDatabase("TodoAppDb"));
+
+            services.AddAutoMapper(typeof(TodoAppDbContext));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodApp WebApi", Version = "v1" });
             });
 
             RegisterServices(services);
@@ -42,6 +48,7 @@ namespace WebApi
         {
             services.AddScoped<ITaskCrudCommands, TaskCrudCommands>();
             services.AddScoped<ITaskCrudQueries, TaskCrudQueries>();
+            services.AddScoped<ITaskCrudRepository, TaskCrudRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

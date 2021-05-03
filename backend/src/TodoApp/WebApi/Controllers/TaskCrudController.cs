@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using UseCases.TaskCrud;
+using UseCases.TaskCrud.Contracts;
 
 namespace WebApi.Controllers
 {
@@ -49,7 +49,7 @@ namespace WebApi.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody] UseCases.TaskCrud.Contracts.Task payload)
+        public async Task<IActionResult> Post([FromBody] TaskCommandDto payload)
         {
             int id = await commands.CreatTask(payload);
 
@@ -61,7 +61,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(int id, [FromBody] UseCases.TaskCrud.Contracts.Task payload)
+        public async Task<IActionResult> Put(int id, [FromBody] TaskCommandDto payload)
         {
             if (!(await queries.TaskExists(id)))
             {

@@ -1,6 +1,6 @@
 ﻿namespace UseCases.TaskCrud.Contracts
 {
-    public class TaskState
+    public class TaskStateQueryDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
