@@ -9,6 +9,6 @@ namespace UseCases.TaskCrud.Contracts
         public DateTime ModificationDate { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int TaskStateId { get; set; }
+        public TaskStateQueryDto TaskState { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace Persistance.Model
         public async Task<TaskQueryDto> GetTask(int id)
         {
             await using var ctxt = new TodoAppDbContext(optionsBuilder.Options);
-            var result = await ctxt.Tasks
+            var result = await ctxt.Tasks.Include(t => t.TaskState)
                 .ProjectTo<TaskQueryDto>(mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
@@ -33,7 +33,7 @@ namespace Persistance.Model
         public async Task<TaskQueryDto[]> GetTasks()
         {
             await using var ctxt = new TodoAppDbContext(optionsBuilder.Options);
-            var result = await ctxt.Tasks
+            var result = await ctxt.Tasks.Include(t => t.TaskState)
                 .ProjectTo<TaskQueryDto>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 
