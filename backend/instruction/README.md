@@ -1,2 +1,2 @@
 Instrukcja znajduje się pod linkiem:
-https://docs.google.com/document/d/1sGn5qPCTAjv__umnz7jhHx0Pz0kUuSSI0IAuNAvw5AI/edit?usp=sharing
+https://drive.google.com/drive/folders/11B5aKhMCFCiyR_GbYhsNKKb5Mr6Ep0Mf?usp=sharing
