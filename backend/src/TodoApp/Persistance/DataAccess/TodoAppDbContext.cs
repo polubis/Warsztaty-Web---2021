@@ -46,10 +46,14 @@ namespace Persistance.DataAccess
     // INFO EF Core 5 migrations https://docs.microsoft.com/pl-pl/ef/core/cli/powershell
     // WebApi ma Microsoft.EntityFrameworkCore.Design
     // Persistance ma Microsoft.EntityFrameworkCore.Tools
-    // W startup.cs services.AddDbContext<TodoAppDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
+    // W startup.cs odkomentowac services.AddDbContext<TodoAppDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
     // Defualt Project  w PackageManagerConsoleustawiony na persistance, startowy projekt ustawiony jako WebApi
     // W Package Manager Console
-    // PM> Add-Migration InitialMigration
+    // Add-Migration InitialMigration
     // Update-Database
+
+
+    // Wygenrowanie skryptów SQL z migracji 
+    // Script-Migration -From <PreviousMigration> -To <LastMigration>
 
 }
