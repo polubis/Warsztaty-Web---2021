@@ -1,0 +1,11 @@
+.text {
+  font-size: 18px;
+  font-family: "Roboto";
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.text > span {
+  color: #65ffcb;
+}
