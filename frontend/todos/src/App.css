@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.percentage-text-red {
+  color: red;
+}
+
+.percentage-text-green {
+  color: green;
+}
