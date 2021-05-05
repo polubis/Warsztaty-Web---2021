@@ -15,6 +15,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import ListIcon from "@material-ui/icons/List";
 import ThemeIcon from "@material-ui/icons/Palette";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import { useState, useCallback } from "react";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -74,6 +75,12 @@ const useStyles = makeStyles((theme) =>
 );
 
 const Navbar = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabChange = useCallback((e, idx) => {
+    setActiveTab(idx);
+  }, []);
+
   const classes = useStyles();
 
   return (
@@ -87,7 +94,7 @@ const Navbar = () => {
 
         <Divider orientation="vertical" />
 
-        <Tabs value={0}>
+        <Tabs value={activeTab} onChange={handleTabChange}>
           <Tab
             className={classes.tab}
             label="Dashboard"
