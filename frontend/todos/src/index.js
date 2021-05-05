@@ -5,11 +5,13 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import TodosPage from "./pages/TodosPage";
+import Navbar from "./components/Navbar";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Switch>
+        <Navbar />
         <Route exact path="/dashboard" component={DashboardPage} />
         <Route exact path="/todos" component={TodosPage} />
         <Route path="*" exact render={() => <div>Not found</div>} />
