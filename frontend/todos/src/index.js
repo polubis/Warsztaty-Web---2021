@@ -10,8 +10,8 @@ import Navbar from "./components/Navbar";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Navbar />
       <Switch>
-        <Navbar />
         <Route exact path="/dashboard" component={DashboardPage} />
         <Route exact path="/todos" component={TodosPage} />
         <Route path="*" exact render={() => <div>Not found</div>} />
