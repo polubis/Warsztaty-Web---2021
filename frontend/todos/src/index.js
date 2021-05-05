@@ -12,6 +12,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/dashboard" component={DashboardPage} />
         <Route exact path="/todos" component={TodosPage} />
+        <Route path="*" exact render={() => <div>Not found</div>} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,
