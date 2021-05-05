@@ -16,6 +16,7 @@ import ListIcon from "@material-ui/icons/List";
 import ThemeIcon from "@material-ui/icons/Palette";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { useState, useCallback } from "react";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -74,14 +75,21 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const Navbar = () => {
-  const [activeTab, setActiveTab] = useState(0);
+const links = ["/dashboard", "/todos"];
 
-  const handleTabChange = useCallback((e, idx) => {
-    setActiveTab(idx);
-  }, []);
+const Navbar = () => {
+  const history = useHistory();
+
+  const handleTabChange = useCallback(
+    (e, idx) => {
+      history.push(links[idx]);
+    },
+    [history]
+  );
 
   const classes = useStyles();
+
+  const activeTab = links.indexOf(history.location.pathname);
 
   return (
     <AppBar className={classes.root}>
