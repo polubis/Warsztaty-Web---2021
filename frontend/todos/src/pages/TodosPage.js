@@ -43,10 +43,25 @@ class TodosPage extends React.Component {
   };
 
   handleTaskStatusChange = (task) => {
-    console.log(findNextTaskState(task.taskState, this.state.taskStates));
-    // To czy tablica jest pusta - jak pusta zwracam null
-    // Czy tablica ma 1 element  - jak tak to zwroc ten element 1
-    // A jak nie to znajdz najstepny status jezeli jest on ostatni to zwroc 1
+    const nextTaskState = findNextTaskState(
+      task.taskState,
+      this.state.taskStates
+    );
+
+    if (!nextTaskState) {
+      return;
+    }
+
+    const nextTasks = this.state.tasks.map((currTask) =>
+      currTask.id === task.id
+        ? {
+            ...currTask,
+            taskState: nextTaskState,
+          }
+        : currTask
+    );
+
+    this.setState({ tasks: nextTasks });
   };
 
   render() {
