@@ -47,14 +47,14 @@ const TasksPageHeader = (props) => {
       <Typography variant="h6">Tasks management</Typography>
 
       <Box className={classes.toolbox}>
-        <Tooltip title="Create status with predefined color theme">
+        <Tooltip title="Create state with predefined color theme">
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
             startIcon={<AddIcon />}
           >
-            Add task status
+            Add task state
           </Button>
         </Tooltip>
 

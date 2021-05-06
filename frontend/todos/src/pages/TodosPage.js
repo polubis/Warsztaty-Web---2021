@@ -42,7 +42,7 @@ class TodosPage extends React.Component {
     });
   };
 
-  handleTaskStatusChange = (task) => {
+  handleTaskStateChange = (task) => {
     const nextTaskState = findNextTaskState(
       task.taskState,
       this.state.taskStates
@@ -80,7 +80,7 @@ class TodosPage extends React.Component {
         ) : (
           <TasksList
             tasks={tasks}
-            onTaskStatusClick={this.handleTaskStatusChange}
+            onTaskStateClick={this.handleTaskStateChange}
           />
         )}
       </>

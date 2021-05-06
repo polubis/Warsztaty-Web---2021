@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) =>
       marginLeft: "auto",
     },
 
-    status: {
+    state: {
       width: 0,
       marginTop: 6,
     },
@@ -76,13 +76,12 @@ const TasksList = (props) => {
               <Typography variant="caption">{task.creationDate}</Typography>
               <Typography variant="subtitle2">{task.name}</Typography>
 
-              <Box className={classes.status}>
+              <Box className={classes.state}>
                 <Chip
                   clickable
                   size="small"
                   label={task.taskState.name}
-                  className={classes.taskStatus}
-                  onClick={() => props.onTaskStatusClick(task)}
+                  onClick={() => props.onTaskStateClick(task)}
                   style={{
                     color: task.taskState.fontColor,
                     background: task.taskState.backgroundColor,
