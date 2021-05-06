@@ -51,37 +51,39 @@ const TasksList = (props) => {
 
   return (
     <List dense className={classes.list}>
-      <ListItem className={classes.listItem}>
-        <Box className={classes.header}>
-          <Box>
-            <Typography variant="caption">19/12/1994</Typography>
-            <Typography variant="subtitle2">Wyniesc smieci</Typography>
+      {props.tasks.map((task) => (
+        <ListItem key={task.id} className={classes.listItem}>
+          <Box className={classes.header}>
+            <Box>
+              <Typography variant="caption">{task.creationDate}</Typography>
+              <Typography variant="subtitle2">{task.name}</Typography>
 
-            <Box className={classes.status}>
-              <Chip
-                clickable
-                size="small"
-                label="To do"
-                className={classes.taskStatus}
-              />
+              <Box className={classes.status}>
+                <Chip
+                  clickable
+                  size="small"
+                  label="To do"
+                  className={classes.taskStatus}
+                />
+              </Box>
+            </Box>
+
+            <Box className={classes.toolbox}>
+              <IconButton aria-label="show more">
+                <ExpandMoreIcon />
+              </IconButton>
+
+              <IconButton aria-label="delete">
+                <MoreIcon fontSize="inherit" />
+              </IconButton>
             </Box>
           </Box>
 
-          <Box className={classes.toolbox}>
-            <IconButton aria-label="show more">
-              <ExpandMoreIcon />
-            </IconButton>
-
-            <IconButton aria-label="delete">
-              <MoreIcon fontSize="inherit" />
-            </IconButton>
-          </Box>
-        </Box>
-
-        <Collapse in={true} timeout="auto" unmountOnExit>
-          <Typography paragraph>Moj opis</Typography>
-        </Collapse>
-      </ListItem>
+          <Collapse in={true} timeout="auto" unmountOnExit>
+            <Typography paragraph>{task.description}</Typography>
+          </Collapse>
+        </ListItem>
+      ))}
     </List>
   );
 };
