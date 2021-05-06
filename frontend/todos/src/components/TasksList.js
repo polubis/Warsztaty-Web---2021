@@ -47,6 +47,10 @@ const useStyles = makeStyles((theme) =>
     content: {
       maxWidth: "60%",
     },
+
+    rotated: {
+      transform: "rotate(180deg)",
+    },
   })
 );
 
@@ -92,7 +96,11 @@ const TasksList = (props) => {
                   aria-label="show more"
                   onClick={() => toggleExpandedItems(task.id)}
                 >
-                  <ExpandMoreIcon />
+                  <ExpandMoreIcon
+                    className={
+                      !!expandedItems[task.id] ? classes.rotated : undefined
+                    }
+                  />
                 </IconButton>
               )}
 
