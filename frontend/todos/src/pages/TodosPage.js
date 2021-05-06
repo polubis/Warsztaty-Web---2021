@@ -10,36 +10,49 @@ import { TasksStates } from "../mocks/TasksStates";
 
 class TodosPage extends React.Component {
   state = {
-    loading: true,
+    loadingTasks: true,
+    loadingTaskStates: true,
     tasks: [],
+    taskStates: [],
   };
 
   componentDidMount() {
     this.loadTasks();
+    this.loadTaskStates();
   }
 
   loadTasks = () => {
-    if (!this.state.loading) {
-      this.setState({ loading: true });
+    if (!this.state.loadingTasks) {
+      this.setState({ loadingTasks: true });
     }
 
     mockApiCall(Tasks).then((tasks) => {
-      this.setState({ loading: false, tasks });
+      this.setState({ loadingTasks: false, tasks });
+    });
+  };
+
+  loadTaskStates = () => {
+    if (!this.state.loadingTaskStates) {
+      this.setState({ loadingTaskStates: true });
+    }
+
+    mockApiCall(TasksStates).then((taskStates) => {
+      this.setState({ loadingTaskStates: false, taskStates });
     });
   };
 
   render() {
-    const { loading, tasks } = this.state;
+    const { loadingTasks, tasks, loadingTaskStates, taskStates } = this.state;
 
     return (
       <div>
         <TasksPageHeader />
-
-        {/* <TasksPageHeader />
-        <TasksStatesLoader />
-        */}
-        <TaskStatesList states={TasksStates} />
-        {loading ? <TasksLoader /> : <TasksList tasks={tasks} />}
+        {loadingTaskStates ? (
+          <TasksStatesLoader />
+        ) : (
+          <TaskStatesList states={taskStates} />
+        )}
+        {loadingTasks ? <TasksLoader /> : <TasksList tasks={tasks} />}
       </div>
     );
   }
