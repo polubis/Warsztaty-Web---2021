@@ -25,16 +25,19 @@ const TaskStatesList = (props) => {
       <Chip
         className={classes.listItem}
         label="Nazwa"
+        onDelete={() => {}}
         deleteIcon={<EditIcon />}
       />
       <Chip
         className={classes.listItem}
         label="Nazwa"
+        onDelete={() => {}}
         deleteIcon={<EditIcon />}
       />
       <Chip
         className={classes.listItem}
         label="Nazwa"
+        onDelete={() => {}}
         deleteIcon={<EditIcon />}
       />
     </Box>
