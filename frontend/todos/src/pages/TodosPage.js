@@ -1,8 +1,13 @@
 import React from "react";
+import TasksLoader from "../components/TasksLoader";
 
 class TodosPage extends React.Component {
   render() {
-    return <div style={{ marginTop: "100px" }}>TodosPage</div>;
+    return (
+      <div style={{ marginTop: "100px" }}>
+        <TasksLoader />
+      </div>
+    );
   }
 }
 
