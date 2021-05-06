@@ -45,7 +45,8 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const TasksList = () => {
+const TasksList = (props) => {
+  console.log(props.tasks);
   const classes = useStyles();
 
   return (
@@ -76,7 +77,7 @@ const TasksList = () => {
             </IconButton>
           </Box>
         </Box>
-        
+
         <Collapse in={true} timeout="auto" unmountOnExit>
           <Typography paragraph>Moj opis</Typography>
         </Collapse>
