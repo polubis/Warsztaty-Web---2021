@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/MoreHoriz";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -50,6 +51,15 @@ const useStyles = makeStyles((theme) =>
 );
 
 const TasksList = (props) => {
+  const [expandedItems, setExpandedItems] = useState({});
+
+  const toggleExpandedItems = (id) => {
+    setExpandedItems((prevExpandedItems) => ({
+      ...prevExpandedItems,
+      [id]: !!prevExpandedItems[id] ? false : true,
+    }));
+  };
+
   console.log(props.tasks);
   const classes = useStyles();
 
@@ -78,7 +88,10 @@ const TasksList = (props) => {
 
             <Box className={classes.toolbox}>
               {task.description && (
-                <IconButton aria-label="show more">
+                <IconButton
+                  aria-label="show more"
+                  onClick={() => toggleExpandedItems(task.id)}
+                >
                   <ExpandMoreIcon />
                 </IconButton>
               )}
@@ -89,7 +102,7 @@ const TasksList = (props) => {
             </Box>
           </Box>
 
-          <Collapse in={true} timeout="auto" unmountOnExit>
+          <Collapse in={!!expandedItems[task.id]} timeout="auto" unmountOnExit>
             <Typography paragraph>{task.description}</Typography>
           </Collapse>
         </ListItem>
