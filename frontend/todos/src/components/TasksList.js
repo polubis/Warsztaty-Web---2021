@@ -8,10 +8,12 @@ import {
   Chip,
   IconButton,
   Collapse,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/MoreHoriz";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -56,13 +58,22 @@ const useStyles = makeStyles((theme) =>
 
 const TasksList = (props) => {
   const [expandedItems, setExpandedItems] = useState({});
+  const [anchor, setAnchor] = useState(null);
 
-  const toggleExpandedItems = (id) => {
+  const toggleExpandedItems = useCallback((id) => {
     setExpandedItems((prevExpandedItems) => ({
       ...prevExpandedItems,
       [id]: !!prevExpandedItems[id] ? false : true,
     }));
-  };
+  }, []);
+
+  const openMenu = useCallback((e) => {
+    setAnchor(e.currentTarget);
+  }, []);
+
+  const closeMenu = useCallback((e) => {
+    setAnchor(null);
+  }, []);
 
   console.log(props.tasks);
   const classes = useStyles();
