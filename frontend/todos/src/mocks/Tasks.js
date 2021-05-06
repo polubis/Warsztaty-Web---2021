@@ -18,4 +18,12 @@ export const Tasks = [
     description: "",
     taskState: TasksStates[1],
   },
+  {
+    id: 2,
+    creationDate: "2019-04-01T00:00:00",
+    modificationDate: "2019-04-01T00:00:00",
+    name: "Wyniesc smieci",
+    description: "",
+    taskState: TasksStates[2],
+  },
 ];

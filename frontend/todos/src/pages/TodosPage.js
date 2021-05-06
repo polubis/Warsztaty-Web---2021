@@ -7,6 +7,7 @@ import { Tasks } from "../mocks/Tasks";
 import { mockApiCall } from "../utils/mockApiCall";
 import TaskStatesList from "../components/TasksStatesList";
 import { TasksStates } from "../mocks/TasksStates";
+import { findNextTaskState } from "../utils/findNextTaskState";
 
 class TodosPage extends React.Component {
   state = {
@@ -41,6 +42,13 @@ class TodosPage extends React.Component {
     });
   };
 
+  handleTaskStatusChange = (task) => {
+    console.log(findNextTaskState(task.taskState, this.state.taskStates));
+    // To czy tablica jest pusta - jak pusta zwracam null
+    // Czy tablica ma 1 element  - jak tak to zwroc ten element 1
+    // A jak nie to znajdz najstepny status jezeli jest on ostatni to zwroc 1
+  };
+
   render() {
     const { loadingTasks, tasks, loadingTaskStates, taskStates } = this.state;
 
@@ -52,7 +60,14 @@ class TodosPage extends React.Component {
         ) : (
           <TaskStatesList states={taskStates} />
         )}
-        {loadingTasks ? <TasksLoader /> : <TasksList tasks={tasks} />}
+        {loadingTasks ? (
+          <TasksLoader />
+        ) : (
+          <TasksList
+            tasks={tasks}
+            onTaskStatusClick={this.handleTaskStatusChange}
+          />
+        )}
       </>
     );
   }

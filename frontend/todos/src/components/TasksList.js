@@ -82,6 +82,7 @@ const TasksList = (props) => {
                   size="small"
                   label={task.taskState.name}
                   className={classes.taskStatus}
+                  onClick={() => props.onTaskStatusClick(task)}
                   style={{
                     color: task.taskState.fontColor,
                     background: task.taskState.backgroundColor,
