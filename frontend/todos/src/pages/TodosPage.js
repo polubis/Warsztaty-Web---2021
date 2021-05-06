@@ -9,16 +9,25 @@ import { mockApiCall } from "../utils/mockApiCall";
 class TodosPage extends React.Component {
   state = {
     loading: true,
+    tasks: [],
   };
 
   componentDidMount() {
-    mockApiCall(Tasks).then((tasks) => {
-      this.setState({ loading: false });
-    });
+    this.loadTasks();
   }
 
+  loadTasks = () => {
+    if (!this.state.loading) {
+      this.setState({ loading: true });
+    }
+
+    mockApiCall(Tasks).then((tasks) => {
+      this.setState({ loading: false, tasks });
+    });
+  };
+
   render() {
-    const { loading } = this.state;
+    const { loading, tasks } = this.state;
 
     return (
       <div>
@@ -28,7 +37,7 @@ class TodosPage extends React.Component {
         <TasksStatesLoader />
         */}
 
-        {loading ? <TasksLoader /> : <TasksList tasks={Tasks} />}
+        {loading ? <TasksLoader /> : <TasksList tasks={tasks} />}
       </div>
     );
   }
