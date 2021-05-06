@@ -56,6 +56,14 @@ const useStyles = makeStyles((theme) =>
     rotated: {
       transform: "rotate(180deg)",
     },
+
+    menuItem: {
+      "& svg": {
+        marginRight: theme.spacing(1.5),
+        width: "22px",
+        height: "22px",
+      },
+    },
   })
 );
 
@@ -82,71 +90,77 @@ const TasksList = (props) => {
   const classes = useStyles();
 
   return (
-    <List dense className={classes.list}>
-      {props.tasks.map((task) => (
-        <ListItem key={task.id} className={classes.listItem}>
-          <Box className={classes.header}>
-            <Box className={classes.content}>
-              <Typography variant="caption">{task.creationDate}</Typography>
-              <Typography variant="subtitle2">{task.name}</Typography>
+    <>
+      <Menu
+        anchorEl={anchor}
+        keepMounted
+        open={!!anchor}
+        onClose={closeMenu}
+        TransitionComponent={Fade}
+      >
+        <MenuItem className={classes.menuItem}>
+          <EditIcon />
+          <Typography variant="button">Edit</Typography>
+        </MenuItem>
+        <MenuItem className={classes.menuItem}>
+          <DeleteIcon />
+          <Typography variant="button">Remove</Typography>
+        </MenuItem>
+      </Menu>
 
-              <Box className={classes.state}>
-                <Chip
-                  clickable
-                  size="small"
-                  label={task.taskState.name}
-                  onClick={() => props.onTaskStateClick(task)}
-                  style={{
-                    color: task.taskState.fontColor,
-                    background: task.taskState.backgroundColor,
-                  }}
-                />
+      <List dense className={classes.list}>
+        {props.tasks.map((task) => (
+          <ListItem key={task.id} className={classes.listItem}>
+            <Box className={classes.header}>
+              <Box className={classes.content}>
+                <Typography variant="caption">{task.creationDate}</Typography>
+                <Typography variant="subtitle2">{task.name}</Typography>
+
+                <Box className={classes.state}>
+                  <Chip
+                    clickable
+                    size="small"
+                    label={task.taskState.name}
+                    onClick={() => props.onTaskStateClick(task)}
+                    style={{
+                      color: task.taskState.fontColor,
+                      background: task.taskState.backgroundColor,
+                    }}
+                  />
+                </Box>
+              </Box>
+
+              <Box className={classes.toolbox}>
+                {task.description && (
+                  <IconButton
+                    aria-label="show more"
+                    onClick={() => toggleExpandedItems(task.id)}
+                  >
+                    <ExpandMoreIcon
+                      className={
+                        !!expandedItems[task.id] ? classes.rotated : undefined
+                      }
+                    />
+                  </IconButton>
+                )}
+
+                <IconButton aria-label="open menu" onClick={openMenu}>
+                  <MoreIcon fontSize="inherit" />
+                </IconButton>
               </Box>
             </Box>
 
-            <Box className={classes.toolbox}>
-              {task.description && (
-                <IconButton
-                  aria-label="show more"
-                  onClick={() => toggleExpandedItems(task.id)}
-                >
-                  <ExpandMoreIcon
-                    className={
-                      !!expandedItems[task.id] ? classes.rotated : undefined
-                    }
-                  />
-                </IconButton>
-              )}
-
-              <IconButton aria-label="open menu" onClick={openMenu}>
-                <MoreIcon fontSize="inherit" />
-              </IconButton>
-            </Box>
-          </Box>
-
-          <Collapse in={!!expandedItems[task.id]} timeout="auto" unmountOnExit>
-            <Typography paragraph>{task.description}</Typography>
-          </Collapse>
-
-          <Menu
-            anchorEl={anchor}
-            keepMounted
-            open={!!anchor}
-            onClose={closeMenu}
-            TransitionComponent={Fade}
-          >
-            <MenuItem className={classes.menuItem}>
-              <EditIcon />
-              <Typography variant="button">Edit</Typography>
-            </MenuItem>
-            <MenuItem className={classes.menuItem}>
-              <DeleteIcon />
-              <Typography variant="button">Remove</Typography>
-            </MenuItem>
-          </Menu>
-        </ListItem>
-      ))}
-    </List>
+            <Collapse
+              in={!!expandedItems[task.id]}
+              timeout="auto"
+              unmountOnExit
+            >
+              <Typography paragraph>{task.description}</Typography>
+            </Collapse>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 
