@@ -77,9 +77,11 @@ const TasksList = (props) => {
             </Box>
 
             <Box className={classes.toolbox}>
-              <IconButton aria-label="show more">
-                <ExpandMoreIcon />
-              </IconButton>
+              {task.description && (
+                <IconButton aria-label="show more">
+                  <ExpandMoreIcon />
+                </IconButton>
+              )}
 
               <IconButton aria-label="delete">
                 <MoreIcon fontSize="inherit" />

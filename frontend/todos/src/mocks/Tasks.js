@@ -19,7 +19,7 @@ export const Tasks = [
     creationDate: "2019-04-01T00:00:00",
     modificationDate: "2019-04-01T00:00:00",
     name: "Wyniesc smieci",
-    description: "Wyniesc smieci",
+    description: "",
     taskState: {
       id: 2,
       name: "In Progress",
