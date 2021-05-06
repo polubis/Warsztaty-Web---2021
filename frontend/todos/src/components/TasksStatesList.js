@@ -22,24 +22,19 @@ const TaskStatesList = (props) => {
 
   return (
     <Box className={classes.list}>
-      <Chip
-        className={classes.listItem}
-        label="Nazwa"
-        onDelete={() => {}}
-        deleteIcon={<EditIcon />}
-      />
-      <Chip
-        className={classes.listItem}
-        label="Nazwa"
-        onDelete={() => {}}
-        deleteIcon={<EditIcon />}
-      />
-      <Chip
-        className={classes.listItem}
-        label="Nazwa"
-        onDelete={() => {}}
-        deleteIcon={<EditIcon />}
-      />
+      {props.states.map((state) => (
+        <Chip
+          key={state.id}
+          className={classes.listItem}
+          label={state.name}
+          style={{
+            color: state.fontColor,
+            background: state.backgroundColor,
+          }}
+          onDelete={() => {}}
+          deleteIcon={<EditIcon style={{ color: state.fontColor }} />}
+        />
+      ))}
     </Box>
   );
 };
