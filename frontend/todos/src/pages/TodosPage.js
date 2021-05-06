@@ -4,7 +4,7 @@ import TasksLoader from "../components/TasksLoader";
 class TodosPage extends React.Component {
   render() {
     return (
-      <div style={{ marginTop: "100px" }}>
+      <div>
         <TasksLoader />
       </div>
     );

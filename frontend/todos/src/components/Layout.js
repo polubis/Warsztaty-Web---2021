@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     layout: {
       flexGrow: 1,
-      padding: "52px",
+      padding: "128px 52px 52px 52px",
     },
   })
 );
