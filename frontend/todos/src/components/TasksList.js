@@ -66,8 +66,12 @@ const TasksList = (props) => {
                 <Chip
                   clickable
                   size="small"
-                  label="To do"
+                  label={task.taskState.name}
                   className={classes.taskStatus}
+                  style={{
+                    color: task.taskState.fontColor,
+                    background: task.taskState.backgroundColor,
+                  }}
                 />
               </Box>
             </Box>

@@ -8,7 +8,7 @@ export const Tasks = [
       "Learn how to write web backend using ASP.NET .NET 5 framework.",
     taskState: {
       id: 2,
-      name: "In Progress",
+      name: "To do",
       description: "Task in this state means it is in progress",
       fontColor: "#000000",
       backgroundColor: "#FF0000",
