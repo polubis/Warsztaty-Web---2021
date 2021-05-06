@@ -7,8 +7,10 @@ import {
   Typography,
   Chip,
   IconButton,
+  Collapse,
 } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/MoreHoriz";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) =>
 
     status: {
       width: 0,
-      marginTop: 6
+      marginTop: 6,
     },
   })
 );
@@ -65,11 +67,19 @@ const TasksList = () => {
           </Box>
 
           <Box className={classes.toolbox}>
+            <IconButton aria-label="show more">
+              <ExpandMoreIcon />
+            </IconButton>
+
             <IconButton aria-label="delete">
               <MoreIcon fontSize="inherit" />
             </IconButton>
           </Box>
         </Box>
+        
+        <Collapse in={true} timeout="auto" unmountOnExit>
+          <Typography paragraph>Moj opis</Typography>
+        </Collapse>
       </ListItem>
     </List>
   );
