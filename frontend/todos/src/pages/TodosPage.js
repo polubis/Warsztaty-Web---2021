@@ -5,6 +5,7 @@ import TasksPageHeader from "../components/TasksPageHeader";
 import TasksList from "../components/TasksList";
 import { Tasks } from "../mocks/Tasks";
 import { mockApiCall } from "../utils/mockApiCall";
+import TaskStatesList from "../components/TasksStatesList";
 
 class TodosPage extends React.Component {
   state = {
@@ -36,7 +37,7 @@ class TodosPage extends React.Component {
         {/* <TasksPageHeader />
         <TasksStatesLoader />
         */}
-
+        <TaskStatesList />
         {loading ? <TasksLoader /> : <TasksList tasks={tasks} />}
       </div>
     );
