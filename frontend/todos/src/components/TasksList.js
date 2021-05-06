@@ -10,10 +10,13 @@ import {
   Collapse,
   Menu,
   MenuItem,
+  Fade,
 } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/MoreHoriz";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useState, useCallback } from "react";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -115,7 +118,7 @@ const TasksList = (props) => {
                 </IconButton>
               )}
 
-              <IconButton aria-label="delete">
+              <IconButton aria-label="open menu" onClick={openMenu}>
                 <MoreIcon fontSize="inherit" />
               </IconButton>
             </Box>
@@ -124,6 +127,23 @@ const TasksList = (props) => {
           <Collapse in={!!expandedItems[task.id]} timeout="auto" unmountOnExit>
             <Typography paragraph>{task.description}</Typography>
           </Collapse>
+
+          <Menu
+            anchorEl={anchor}
+            keepMounted
+            open={!!anchor}
+            onClose={closeMenu}
+            TransitionComponent={Fade}
+          >
+            <MenuItem className={classes.menuItem}>
+              <EditIcon />
+              <Typography variant="button">Edit</Typography>
+            </MenuItem>
+            <MenuItem className={classes.menuItem}>
+              <DeleteIcon />
+              <Typography variant="button">Remove</Typography>
+            </MenuItem>
+          </Menu>
         </ListItem>
       ))}
     </List>
