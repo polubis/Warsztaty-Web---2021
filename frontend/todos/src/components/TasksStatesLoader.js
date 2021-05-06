@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     loaders: {
       display: "flex",
+      marginBottom: theme.spacing(4),
     },
 
     loader: {

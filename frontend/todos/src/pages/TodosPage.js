@@ -45,7 +45,7 @@ class TodosPage extends React.Component {
     const { loadingTasks, tasks, loadingTaskStates, taskStates } = this.state;
 
     return (
-      <div>
+      <>
         <TasksPageHeader />
         {loadingTaskStates ? (
           <TasksStatesLoader />
@@ -53,7 +53,7 @@ class TodosPage extends React.Component {
           <TaskStatesList states={taskStates} />
         )}
         {loadingTasks ? <TasksLoader /> : <TasksList tasks={tasks} />}
-      </div>
+      </>
     );
   }
 }
