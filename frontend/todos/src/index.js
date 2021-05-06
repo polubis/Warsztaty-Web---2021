@@ -6,16 +6,19 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import TodosPage from "./pages/TodosPage";
 import Navbar from "./components/Navbar";
+import Layout from "./components/Layout";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Navbar />
-      <Switch>
-        <Route exact path="/dashboard" component={DashboardPage} />
-        <Route exact path="/todos" component={TodosPage} />
-        <Route path="*" exact render={() => <div>Not found</div>} />
-      </Switch>
+      <Layout>
+        <Switch>
+          <Route exact path="/dashboard" component={DashboardPage} />
+          <Route exact path="/todos" component={TodosPage} />
+          <Route path="*" exact render={() => <div>Not found</div>} />
+        </Switch>
+      </Layout>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
