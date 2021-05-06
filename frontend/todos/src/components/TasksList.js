@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) =>
       width: 0,
       marginTop: 6,
     },
+
+    content: {
+      maxWidth: "60%",
+    },
   })
 );
 
@@ -54,7 +58,7 @@ const TasksList = (props) => {
       {props.tasks.map((task) => (
         <ListItem key={task.id} className={classes.listItem}>
           <Box className={classes.header}>
-            <Box>
+            <Box className={classes.content}>
               <Typography variant="caption">{task.creationDate}</Typography>
               <Typography variant="subtitle2">{task.name}</Typography>
 
