@@ -8,6 +8,7 @@ import { mockApiCall } from "../utils/mockApiCall";
 import TaskStatesList from "../components/TasksStatesList";
 import { TasksStates } from "../mocks/TasksStates";
 import { findNextTaskState } from "../utils/findNextTaskState";
+import ConfirmationDialog from "../ui/ConfirmationDialog";
 
 class TodosPage extends React.Component {
   state = {
@@ -69,6 +70,7 @@ class TodosPage extends React.Component {
 
     return (
       <>
+        <ConfirmationDialog />
         <TasksPageHeader />
         {loadingTaskStates ? (
           <TasksStatesLoader />
