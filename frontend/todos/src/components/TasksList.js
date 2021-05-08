@@ -102,7 +102,10 @@ const TasksList = (props) => {
           <EditIcon />
           <Typography variant="button">Edit</Typography>
         </MenuItem>
-        <MenuItem className={classes.menuItem}>
+        <MenuItem
+          className={classes.menuItem}
+          onClick={props.onTaskRemoveClick}
+        >
           <DeleteIcon />
           <Typography variant="button">Remove</Typography>
         </MenuItem>

@@ -10,15 +10,17 @@ import Loader from "./Loader";
 
 const ConfirmationDialog = (props) => {
   return (
-    <Dialog open>
-      <Loader />
+    <Dialog open={props.open}>
+      {props.loading && <Loader />}
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{props.description}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button color="primary">Cancel</Button>
-        <Button autoFocus color="primary">
+        <Button color="primary" onClick={props.onClose}>
+          Cancel
+        </Button>
+        <Button autoFocus color="primary" onClick={props.onConfirm}>
           Confirm
         </Button>
       </DialogActions>
