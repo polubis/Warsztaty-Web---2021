@@ -17,6 +17,7 @@ class TodosPage extends React.Component {
     tasks: [],
     taskStates: [],
     isDeleteTaskDialogOpen: false,
+    isDeleteTaskInProgress: false,
   };
 
   componentDidMount() {
@@ -74,7 +75,19 @@ class TodosPage extends React.Component {
     this.setState({ isDeleteTaskDialogOpen: false });
   };
 
-  handleDeleteTaskDialogConfirm = () => {};
+  handleDeleteTaskDialogConfirm = () => {
+    this.setState({ isDeleteTaskInProgress: true });
+
+    mockApiCall().then(() => {
+      this.setState((prevState) => ({
+        isDeleteTaskInProgress: false,
+        isDeleteTaskDialogOpen: false,
+        tasks: prevState.tasks.filter(
+          (task) => task.id !== prevState.taskToDeleteId
+        ),
+      }));
+    });
+  };
 
   render() {
     const {
@@ -83,6 +96,7 @@ class TodosPage extends React.Component {
       loadingTaskStates,
       taskStates,
       isDeleteTaskDialogOpen,
+      isDeleteTaskInProgress,
     } = this.state;
 
     return (
@@ -90,7 +104,7 @@ class TodosPage extends React.Component {
         <ConfirmationDialog
           open={isDeleteTaskDialogOpen}
           description="This operation cannot be undone."
-          loading={false}
+          loading={isDeleteTaskInProgress}
           title="Are you sure you want to remove task task status ?"
           onClose={this.handleDeleteTaskDialogClose}
           onConfirm={this.handleDeleteTaskDialogConfirm}
