@@ -10,11 +10,9 @@ import {
 const ConfirmationDialog = (props) => {
   return (
     <Dialog open>
-      <DialogTitle>
-        Are you sure you want to remove task task status ?
-      </DialogTitle>
+      <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>This operation cannot be undone.</DialogContentText>
+        <DialogContentText>{props.description}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button color="primary">Cancel</Button>

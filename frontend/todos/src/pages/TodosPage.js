@@ -70,7 +70,10 @@ class TodosPage extends React.Component {
 
     return (
       <>
-        <ConfirmationDialog />
+        <ConfirmationDialog
+          description="This operation cannot be undone."
+          title="Are you sure you want to remove task task status ?"
+        />
         <TasksPageHeader />
         {loadingTaskStates ? (
           <TasksStatesLoader />
