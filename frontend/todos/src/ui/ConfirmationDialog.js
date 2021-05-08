@@ -6,10 +6,12 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core";
+import Loader from "./Loader";
 
 const ConfirmationDialog = (props) => {
   return (
     <Dialog open>
+      <Loader />
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{props.description}</DialogContentText>
