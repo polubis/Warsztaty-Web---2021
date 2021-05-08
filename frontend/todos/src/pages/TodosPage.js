@@ -7,8 +7,8 @@ import { Tasks } from "../mocks/Tasks";
 import { mockApiCall } from "../utils/mockApiCall";
 import TaskStatesList from "../components/TasksStatesList";
 import { TasksStates } from "../mocks/TasksStates";
-import { findNextTaskState } from "../utils/findNextTaskState";
 import ConfirmationDialog from "../ui/ConfirmationDialog";
+import { updateEntityById, filterEntitiesById } from "../utils/crud";
 
 class TodosPage extends React.Component {
   state = {
@@ -46,6 +46,22 @@ class TodosPage extends React.Component {
   };
 
   handleTaskStateChange = (task) => {
+    const findNextTaskState = (state, states) => {
+      if (states.length === 0) {
+        return null;
+      }
+
+      if (states.length === 1) {
+        return states[0];
+      }
+
+      const foundTaskStateIdx = states.findIndex(
+        (currState) => currState.id === state.id
+      );
+
+      return states[foundTaskStateIdx + 1] ?? states[0];
+    };
+
     const nextTaskState = findNextTaskState(
       task.taskState,
       this.state.taskStates
@@ -55,14 +71,10 @@ class TodosPage extends React.Component {
       return;
     }
 
-    const nextTasks = this.state.tasks.map((currTask) =>
-      currTask.id === task.id
-        ? {
-            ...currTask,
-            taskState: nextTaskState,
-          }
-        : currTask
-    );
+    const nextTasks = updateEntityById(this.state.tasks, {
+      ...task,
+      taskState: nextTaskState,
+    });
 
     this.setState({ tasks: nextTasks });
   };
@@ -82,9 +94,7 @@ class TodosPage extends React.Component {
       this.setState((prevState) => ({
         isDeleteTaskInProgress: false,
         taskToDeleteId: -1,
-        tasks: prevState.tasks.filter(
-          (task) => task.id !== prevState.taskToDeleteId
-        ),
+        tasks: filterEntitiesById(prevState.tasks, prevState.taskToDeleteId),
       }));
     });
   };
