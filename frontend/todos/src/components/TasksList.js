@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) =>
 const TasksList = ({ tasks, onTaskRemoveClick, onTaskStateClick }) => {
   const [expandedItems, setExpandedItems] = useState({});
   const [anchor, setAnchor] = useState(null);
+  const [activeTask, setActiveTask] = useState(null);
 
   const toggleExpandedItems = useCallback((id) => {
     setExpandedItems((prevExpandedItems) => ({
@@ -78,19 +79,21 @@ const TasksList = ({ tasks, onTaskRemoveClick, onTaskStateClick }) => {
     }));
   }, []);
 
-  const openMenu = useCallback((e) => {
+  const openMenu = useCallback((e, task) => {
     setAnchor(e.currentTarget);
+    setActiveTask(task);
   }, []);
 
   const closeMenu = useCallback((e) => {
     setAnchor(null);
+    setActiveTask(null);
   }, []);
 
   const handleTaskRemoveClick = useCallback(() => {
     closeMenu();
-    onTaskRemoveClick();
+    onTaskRemoveClick(activeTask.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onTaskRemoveClick]);
+  }, [activeTask, onTaskRemoveClick]);
 
   const classes = useStyles();
 
@@ -149,7 +152,10 @@ const TasksList = ({ tasks, onTaskRemoveClick, onTaskStateClick }) => {
                   </IconButton>
                 )}
 
-                <IconButton aria-label="open menu" onClick={openMenu}>
+                <IconButton
+                  aria-label="open menu"
+                  onClick={(e) => openMenu(e, task)}
+                >
                   <MoreIcon fontSize="inherit" />
                 </IconButton>
               </Box>

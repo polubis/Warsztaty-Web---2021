@@ -16,8 +16,8 @@ class TodosPage extends React.Component {
     loadingTaskStates: true,
     tasks: [],
     taskStates: [],
-    isDeleteTaskDialogOpen: false,
     isDeleteTaskInProgress: false,
+    taskToDeleteId: -1,
   };
 
   componentDidMount() {
@@ -67,12 +67,12 @@ class TodosPage extends React.Component {
     this.setState({ tasks: nextTasks });
   };
 
-  handleDeleteTaskDialogOpen = () => {
-    this.setState({ isDeleteTaskDialogOpen: true });
+  handleDeleteTaskDialogOpen = (taskId) => {
+    this.setState({ taskToDeleteId: taskId });
   };
 
   handleDeleteTaskDialogClose = () => {
-    this.setState({ isDeleteTaskDialogOpen: false });
+    this.setState({ taskToDeleteId: -1 });
   };
 
   handleDeleteTaskDialogConfirm = () => {
@@ -81,7 +81,7 @@ class TodosPage extends React.Component {
     mockApiCall().then(() => {
       this.setState((prevState) => ({
         isDeleteTaskInProgress: false,
-        isDeleteTaskDialogOpen: false,
+        taskToDeleteId: -1,
         tasks: prevState.tasks.filter(
           (task) => task.id !== prevState.taskToDeleteId
         ),
@@ -95,9 +95,11 @@ class TodosPage extends React.Component {
       tasks,
       loadingTaskStates,
       taskStates,
-      isDeleteTaskDialogOpen,
       isDeleteTaskInProgress,
+      taskToDeleteId,
     } = this.state;
+
+    const isDeleteTaskDialogOpen = taskToDeleteId > -1;
 
     return (
       <>
