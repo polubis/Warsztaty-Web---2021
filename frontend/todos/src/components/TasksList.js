@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const TasksList = (props) => {
+const TasksList = ({ tasks, onTaskRemoveClick, onTaskStateClick }) => {
   const [expandedItems, setExpandedItems] = useState({});
   const [anchor, setAnchor] = useState(null);
 
@@ -86,7 +86,12 @@ const TasksList = (props) => {
     setAnchor(null);
   }, []);
 
-  console.log(props.tasks);
+  const handleTaskRemoveClick = useCallback(() => {
+    closeMenu();
+    onTaskRemoveClick();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onTaskRemoveClick]);
+
   const classes = useStyles();
 
   return (
@@ -102,17 +107,14 @@ const TasksList = (props) => {
           <EditIcon />
           <Typography variant="button">Edit</Typography>
         </MenuItem>
-        <MenuItem
-          className={classes.menuItem}
-          onClick={props.onTaskRemoveClick}
-        >
+        <MenuItem className={classes.menuItem} onClick={handleTaskRemoveClick}>
           <DeleteIcon />
           <Typography variant="button">Remove</Typography>
         </MenuItem>
       </Menu>
 
       <List dense className={classes.list}>
-        {props.tasks.map((task) => (
+        {tasks.map((task) => (
           <ListItem key={task.id} className={classes.listItem}>
             <Box className={classes.header}>
               <Box className={classes.content}>
@@ -124,7 +126,7 @@ const TasksList = (props) => {
                     clickable
                     size="small"
                     label={task.taskState.name}
-                    onClick={() => props.onTaskStateClick(task)}
+                    onClick={() => onTaskStateClick(task)}
                     style={{
                       color: task.taskState.fontColor,
                       background: task.taskState.backgroundColor,
