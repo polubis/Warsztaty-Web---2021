@@ -9,6 +9,7 @@ import TaskStatesList from "../components/TasksStatesList";
 import { TasksStates } from "../mocks/TasksStates";
 import ConfirmationDialog from "../ui/ConfirmationDialog";
 import { updateEntityById, filterEntitiesById } from "../utils/crud";
+import TaskFormDialog from "../components/TaskFormDialog";
 
 class TodosPage extends React.Component {
   state = {
@@ -113,6 +114,7 @@ class TodosPage extends React.Component {
 
     return (
       <>
+        <TaskFormDialog />
         <ConfirmationDialog
           open={isDeleteTaskDialogOpen}
           description="This operation cannot be undone."
