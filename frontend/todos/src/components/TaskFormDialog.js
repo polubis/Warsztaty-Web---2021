@@ -15,6 +15,7 @@ import {
 import { useState, useCallback, useMemo } from "react";
 import Loader from "../ui/Loader";
 import { mockApiCall } from "../utils/mockApiCall";
+import ColorPicker from "../ui/ColorPicker";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -67,6 +68,8 @@ const TaskFormDialog = ({ onClose }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    color: "#000000",
+    background: "#ffffff",
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -77,10 +80,14 @@ const TaskFormDialog = ({ onClose }) => {
     const { name: key, value } = e.target;
 
     setFormTouched(true);
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [key]: validators[key](value),
-    }));
+
+    if (validators[key]) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [key]: validators[key](value),
+      }));
+    }
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [key]: value,
@@ -150,6 +157,26 @@ const TaskFormDialog = ({ onClose }) => {
               </FormHelperText>
             )}
           </FormControl>
+        </Box>
+
+        <Box paddingTop={1}>
+          <ColorPicker
+            value={formData.color}
+            label="Font"
+            name="color"
+            helperText="This color will be used to style task font color."
+            onChange={handleChange}
+          />
+        </Box>
+
+        <Box paddingTop={1}>
+          <ColorPicker
+            value={formData.background}
+            label="Background"
+            name="background"
+            helperText="This color will be used to style task background."
+            onChange={handleChange}
+          />
         </Box>
       </DialogContent>
       <DialogActions>
