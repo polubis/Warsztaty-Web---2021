@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const TasksPageHeader = (props) => {
+const TasksPageHeader = ({ onAddTaskClick }) => {
   const classes = useStyles();
 
   return (
@@ -64,6 +64,7 @@ const TasksPageHeader = (props) => {
             color="primary"
             className={classes.button}
             startIcon={<AddIcon />}
+            onClick={onAddTaskClick}
           >
             Add task
           </Button>

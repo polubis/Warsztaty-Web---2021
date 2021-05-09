@@ -19,6 +19,7 @@ class TodosPage extends React.Component {
     taskStates: [],
     isDeleteTaskInProgress: false,
     taskToDeleteId: -1,
+    isTaskFormDialogOpen: false,
   };
 
   componentDidMount() {
@@ -100,6 +101,12 @@ class TodosPage extends React.Component {
     });
   };
 
+  toggleIsTaskFormDialogOpen = () => {
+    this.setState((prevState) => ({
+      isTaskFormDialogOpen: !prevState.isTaskFormDialogOpen,
+    }));
+  };
+
   render() {
     const {
       loadingTasks,
@@ -108,13 +115,16 @@ class TodosPage extends React.Component {
       taskStates,
       isDeleteTaskInProgress,
       taskToDeleteId,
+      isTaskFormDialogOpen,
     } = this.state;
 
     const isDeleteTaskDialogOpen = taskToDeleteId > -1;
 
     return (
       <>
-        <TaskFormDialog />
+        {isTaskFormDialogOpen && (
+          <TaskFormDialog onClose={this.toggleIsTaskFormDialogOpen} />
+        )}
         <ConfirmationDialog
           open={isDeleteTaskDialogOpen}
           description="This operation cannot be undone."
@@ -123,7 +133,7 @@ class TodosPage extends React.Component {
           onClose={this.handleDeleteTaskDialogClose}
           onConfirm={this.handleDeleteTaskDialogConfirm}
         />
-        <TasksPageHeader />
+        <TasksPageHeader onAddTaskClick={this.toggleIsTaskFormDialogOpen} />
         {loadingTaskStates ? (
           <TasksStatesLoader />
         ) : (

@@ -59,7 +59,7 @@ const validators = {
   },
 };
 
-const TaskFormDialog = () => {
+const TaskFormDialog = ({ onClose }) => {
   const classes = useStyles();
 
   const [pending, setPending] = useState(false);
@@ -101,7 +101,7 @@ const TaskFormDialog = () => {
   }, [formData]);
 
   return (
-    <Dialog open>
+    <Dialog open onClose={pending ? undefined : onClose}>
       {pending && <Loader />}
       <DialogTitle>Create new task</DialogTitle>
       <DialogContent className={classes.content}>
@@ -153,7 +153,7 @@ const TaskFormDialog = () => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" disabled={pending}>
+        <Button color="primary" disabled={pending} onClick={onClose}>
           Cancel
         </Button>
         <Button
