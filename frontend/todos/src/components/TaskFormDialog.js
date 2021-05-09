@@ -9,8 +9,18 @@ import {
   Button,
   DialogContentText,
   FormHelperText,
+  makeStyles,
+  createStyles,
 } from "@material-ui/core";
 import { useState, useCallback, useMemo } from "react";
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    error: {
+      color: theme.palette.error.main,
+    },
+  })
+);
 
 const validators = {
   name: (name) => {
@@ -44,6 +54,8 @@ const validators = {
 };
 
 const TaskFormDialog = () => {
+  const classes = useStyles();
+
   const [formTouched, setFormTouched] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -68,9 +80,10 @@ const TaskFormDialog = () => {
     }));
   }, []);
 
-  const formDataInvalid = useMemo(() => {
-    return formTouched ? Object.values(errors).some((error) => !!error) : false;
-  }, [formTouched, errors]);
+  const formDataInvalid = useMemo(
+    () => formTouched && Object.values(errors).some((error) => !!error),
+    [formTouched, errors]
+  );
 
   return (
     <Dialog open>
@@ -91,7 +104,9 @@ const TaskFormDialog = () => {
             onChange={handleChange}
           />
           {errors.name && (
-            <FormHelperText id="name-text">{errors.name}</FormHelperText>
+            <FormHelperText id="name-text" className={classes.error}>
+              {errors.name}
+            </FormHelperText>
           )}
         </FormControl>
 
@@ -108,7 +123,7 @@ const TaskFormDialog = () => {
               onChange={handleChange}
             />
             {errors.description ? (
-              <FormHelperText id="description-text">
+              <FormHelperText id="description-text" className={classes.error}>
                 {errors.description}
               </FormHelperText>
             ) : (
