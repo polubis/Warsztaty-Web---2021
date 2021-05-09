@@ -13,6 +13,8 @@ import {
   createStyles,
 } from "@material-ui/core";
 import { useState, useCallback, useMemo } from "react";
+import Loader from "../ui/Loader";
+import { mockApiCall } from "../utils/mockApiCall";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -60,6 +62,7 @@ const validators = {
 const TaskFormDialog = () => {
   const classes = useStyles();
 
+  const [pending, setPending] = useState(false);
   const [formTouched, setFormTouched] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -89,11 +92,22 @@ const TaskFormDialog = () => {
     [formTouched, errors]
   );
 
+  const handleSubmit = useCallback(() => {
+    setPending(true);
+
+    mockApiCall(formData).then(() => {
+      setPending(false);
+    });
+  }, [formData]);
+
   return (
     <Dialog open>
-      <DialogTitle>My Title</DialogTitle>
+      {pending && <Loader />}
+      <DialogTitle>Create new task</DialogTitle>
       <DialogContent className={classes.content}>
-        <DialogContentText>Decription</DialogContentText>
+        <DialogContentText>
+          Populate required fields and create your task.
+        </DialogContentText>
 
         <FormControl fullWidth margin="dense">
           <TextField
@@ -139,8 +153,14 @@ const TaskFormDialog = () => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button color="primary">Cancel</Button>
-        <Button color="primary" disabled={!formTouched || formDataInvalid}>
+        <Button color="primary" disabled={pending}>
+          Cancel
+        </Button>
+        <Button
+          color="primary"
+          disabled={!formTouched || formDataInvalid || pending}
+          onClick={handleSubmit}
+        >
           Submit
         </Button>
       </DialogActions>
