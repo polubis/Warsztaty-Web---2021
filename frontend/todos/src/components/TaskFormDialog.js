@@ -16,6 +16,10 @@ import { useState, useCallback, useMemo } from "react";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    content: {
+      width: 380,
+    },
+
     error: {
       color: theme.palette.error.main,
     },
@@ -88,7 +92,7 @@ const TaskFormDialog = () => {
   return (
     <Dialog open>
       <DialogTitle>My Title</DialogTitle>
-      <DialogContent>
+      <DialogContent className={classes.content}>
         <DialogContentText>Decription</DialogContentText>
 
         <FormControl fullWidth margin="dense">
