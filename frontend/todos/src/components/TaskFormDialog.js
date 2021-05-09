@@ -10,8 +10,28 @@ import {
   DialogContentText,
   FormHelperText,
 } from "@material-ui/core";
+import { useState, useCallback } from "react";
 
 const TaskFormDialog = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+  });
+
+  const handleNameChange = useCallback((e) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      name: e.target.value,
+    }));
+  }, []);
+
+  const handeDescriptionChange = useCallback((e) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      description: e.target.value,
+    }));
+  }, []);
+
   return (
     <Dialog open>
       <DialogTitle>My Title</DialogTitle>
@@ -26,6 +46,8 @@ const TaskFormDialog = () => {
             variant="outlined"
             autoComplete="off"
             autoFocus
+            value={formData.name}
+            onChange={handleNameChange}
           />
         </FormControl>
 
@@ -38,6 +60,8 @@ const TaskFormDialog = () => {
               variant="outlined"
               aria-describedby="description-text"
               rowsMax="4"
+              value={formData.description}
+              onChange={handeDescriptionChange}
             />
             <FormHelperText id="description-text">
               Will be needed later for better understanding purposes.
