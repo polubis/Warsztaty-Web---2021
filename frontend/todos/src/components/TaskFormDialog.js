@@ -16,7 +16,7 @@ import { useState, useCallback, useMemo } from "react";
 import Loader from "../ui/Loader";
 import { mockApiCall } from "../utils/mockApiCall";
 import ColorPicker from "../ui/ColorPicker";
-import { required } from "../utils/validators";
+import { required, min } from "../utils/validators";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -30,15 +30,13 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const checkMin = min(3);
-
 const validators = {
   name: (name) => {
     if (required(name)) {
       return "Field name is required";
     }
 
-    if (checkMin(name)) {
+    if (min(3)(name)) {
       return "Min characters  3";
     }
 
@@ -50,7 +48,7 @@ const validators = {
   },
   description: (description) => {
     if (description) {
-      if (checkMin(description)) {
+      if (min(3)(description)) {
         return "Min characters 3";
       }
 
