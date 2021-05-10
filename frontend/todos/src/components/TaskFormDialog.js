@@ -30,13 +30,15 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+const checkMin = min(3);
+
 const validators = {
   name: (name) => {
     if (required(name)) {
       return "Field name is required";
     }
 
-    if (name.length < 3) {
+    if (checkMin(name)) {
       return "Min characters  3";
     }
 
@@ -48,7 +50,7 @@ const validators = {
   },
   description: (description) => {
     if (description) {
-      if (description.length < 3) {
+      if (checkMin(description)) {
         return "Min characters 3";
       }
 

@@ -11,3 +11,5 @@ export const required = (value) => {
 
   return value === undefined || value === null;
 };
+
+export const min = (expectedValue) => (value) => {};
