@@ -16,7 +16,7 @@ import { useState, useCallback, useMemo } from "react";
 import Loader from "../ui/Loader";
 import { mockApiCall } from "../utils/mockApiCall";
 import ColorPicker from "../ui/ColorPicker";
-import { required, min } from "../utils/validators";
+import { required, min, max } from "../utils/validators";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -40,7 +40,7 @@ const validators = {
       return "Min characters  3";
     }
 
-    if (name.length > 10) {
+    if (max(10, name)) {
       return "Max characters 10";
     }
 
@@ -52,7 +52,7 @@ const validators = {
         return "Min characters 3";
       }
 
-      if (description.length > 10) {
+      if (max(10, description)) {
         return "Max characters 10";
       }
     }

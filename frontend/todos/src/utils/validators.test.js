@@ -1,4 +1,4 @@
-import { required, min } from "./validators";
+import { required, min, max } from "./validators";
 
 describe("required()", () => {
   describe("for string argument", () => {
@@ -78,6 +78,47 @@ describe("min()", () => {
     it("returns correct result", () => {
       expect(min(3)(undefined)).toBe(false);
       expect(min(3)(null)).toBe(false);
+    });
+  });
+});
+
+describe("max()", () => {
+  describe("for number value", () => {
+    it("returns correct result", () => {
+      expect(max(3)(3)).toBe(false);
+      expect(max(3)(2)).toBe(false);
+      expect(max(3)(4)).toBe(true);
+    });
+  });
+
+  describe("for string value", () => {
+    it("returns correct result", () => {
+      expect(max(3)("ddd")).toBe(false);
+      expect(max(3)("dd")).toBe(false);
+      expect(max(3)("dddd")).toBe(true);
+    });
+  });
+
+  describe("for array value", () => {
+    it("returns correct result", () => {
+      expect(max(3)(["", "", ""])).toBe(false);
+      expect(max(3)(["", ""])).toBe(false);
+      expect(max(3)(["", "", "", ""])).toBe(true);
+    });
+  });
+
+  describe("for object value", () => {
+    it("returns correct result", () => {
+      expect(max(3)({ 1: 1, 2: 2, 3: 3 })).toBe(false);
+      expect(max(3)({ 1: 1, 2: 2 })).toBe(false);
+      expect(max(3)({ 1: 1, 2: 2, 3: 3, 4: 4 })).toBe(true);
+    });
+  });
+
+  describe("for other values", () => {
+    it("returns correct result", () => {
+      expect(max(3)(undefined)).toBe(false);
+      expect(max(3)(null)).toBe(false);
     });
   });
 });

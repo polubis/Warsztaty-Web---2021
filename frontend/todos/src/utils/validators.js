@@ -27,3 +27,19 @@ export const min = (expectedValue) => (value) => {
 
   return false;
 };
+
+export const max = (expectedValue) => (value) => {
+  if (typeof value === "number") {
+    return value > expectedValue;
+  }
+
+  if (typeof value === "string" || Array.isArray(value)) {
+    return value.length > expectedValue;
+  }
+
+  if (isObject(value)) {
+    return Object.keys(value).length > expectedValue;
+  }
+
+  return false;
+};
