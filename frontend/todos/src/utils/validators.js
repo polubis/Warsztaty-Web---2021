@@ -14,15 +14,15 @@ export const required = (value) => {
 
 export const min = (expectedValue) => (value) => {
   if (typeof value === "number") {
-    return value >= expectedValue;
+    return value < expectedValue;
   }
 
   if (typeof value === "string" || Array.isArray(value)) {
-    return value.length >= expectedValue;
+    return value.length < expectedValue;
   }
 
   if (isObject(value)) {
-    return Object.keys(value).length >= expectedValue;
+    return Object.keys(value).length < expectedValue;
   }
 
   return false;
