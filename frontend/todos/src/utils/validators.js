@@ -1,7 +1,13 @@
 const isObject = (value) => typeof value === "object" && value !== null;
 
+const isIterable = (value) => typeof value === "string" || Array.isArray(value);
+
+const isNumber = (value) => typeof value === "number";
+
+const isFalsy = (value) => value === undefined || value === null;
+
 export const required = (value) => {
-  if (typeof value === "string" || Array.isArray(value)) {
+  if (isIterable(value)) {
     return value.length === 0;
   }
 
@@ -9,15 +15,15 @@ export const required = (value) => {
     return Object.keys(value).length === 0;
   }
 
-  return value === undefined || value === null;
+  return isFalsy(value);
 };
 
 export const min = (expectedValue) => (value) => {
-  if (typeof value === "number") {
+  if (isNumber(value)) {
     return value < expectedValue;
   }
 
-  if (typeof value === "string" || Array.isArray(value)) {
+  if (isIterable(value)) {
     return value.length < expectedValue;
   }
 
@@ -29,11 +35,11 @@ export const min = (expectedValue) => (value) => {
 };
 
 export const max = (expectedValue) => (value) => {
-  if (typeof value === "number") {
+  if (isNumber(value)) {
     return value > expectedValue;
   }
 
-  if (typeof value === "string" || Array.isArray(value)) {
+  if (isIterable(value)) {
     return value.length > expectedValue;
   }
 
