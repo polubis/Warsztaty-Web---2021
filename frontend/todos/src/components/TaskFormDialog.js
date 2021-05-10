@@ -16,6 +16,7 @@ import { useState, useCallback, useMemo } from "react";
 import Loader from "../ui/Loader";
 import { mockApiCall } from "../utils/mockApiCall";
 import ColorPicker from "../ui/ColorPicker";
+import { required } from "../utils/validators";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) =>
 
 const validators = {
   name: (name) => {
-    if (name === "") {
+    if (required(name)) {
       return "Field name is required";
     }
 

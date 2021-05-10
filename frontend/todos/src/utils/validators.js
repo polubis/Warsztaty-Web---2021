@@ -1,11 +1,7 @@
 const isObject = (value) => typeof value === "object" && value !== null;
 
 export const required = (value) => {
-  if (typeof value === "string") {
-    return value === "";
-  }
-
-  if (Array.isArray(value)) {
+  if (typeof value === "string" || Array.isArray(value)) {
     return value.length === 0;
   }
 
