@@ -40,7 +40,7 @@ const validators = {
       return "Min characters  3";
     }
 
-    if (max(10, name)) {
+    if (max(10)(name)) {
       return "Max characters 10";
     }
 
@@ -52,7 +52,7 @@ const validators = {
         return "Min characters 3";
       }
 
-      if (max(10, description)) {
+      if (max(10)(description)) {
         return "Max characters 10";
       }
     }
