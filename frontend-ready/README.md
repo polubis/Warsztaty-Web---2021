@@ -1,0 +1,1 @@
+# Tego kodu nie dotykamy :) - dziekuje
