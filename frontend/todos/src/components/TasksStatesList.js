@@ -31,7 +31,7 @@ const TaskStatesList = ({ states, onTaskStateEditClick }) => {
             color: state.fontColor,
             background: state.backgroundColor,
           }}
-          onClick={onTaskStateEditClick}
+          onClick={() => onTaskStateEditClick(state)}
           onDelete={() => {}}
           deleteIcon={<EditIcon style={{ color: state.fontColor }} />}
         />
