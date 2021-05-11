@@ -6,6 +6,15 @@ const isNumber = (value) => typeof value === "number";
 
 const isFalsy = (value) => value === undefined || value === null;
 
+export const createValidator = (validator, name) => {
+  Object.defineProperty(validator, "name", {
+    value: name,
+    configurable: true,
+  });
+
+  return validator;
+};
+
 export const required = (value) => {
   if (isIterable(value)) {
     return value.length === 0;
@@ -18,40 +27,48 @@ export const required = (value) => {
   return isFalsy(value);
 };
 
-export const min = (expectedValue) => (value) => {
-  if (isNumber(value)) {
-    return value < expectedValue;
-  }
+export const min = (expectedValue) =>
+  createValidator((value) => {
+    if (isNumber(value)) {
+      return value < expectedValue;
+    }
 
-  if (isIterable(value)) {
-    return value.length < expectedValue;
-  }
+    if (isIterable(value)) {
+      return value.length < expectedValue;
+    }
 
-  if (isObject(value)) {
-    return Object.keys(value).length < expectedValue;
-  }
+    if (isObject(value)) {
+      return Object.keys(value).length < expectedValue;
+    }
 
-  return false;
-};
+    return false;
+  }, "min");
 
-export const max = (expectedValue) => (value) => {
-  if (isNumber(value)) {
-    return value > expectedValue;
-  }
+export const max = (expectedValue) =>
+  createValidator((value) => {
+    if (isNumber(value)) {
+      return value > expectedValue;
+    }
 
-  if (isIterable(value)) {
-    return value.length > expectedValue;
-  }
+    if (isIterable(value)) {
+      return value.length > expectedValue;
+    }
 
-  if (isObject(value)) {
-    return Object.keys(value).length > expectedValue;
-  }
+    if (isObject(value)) {
+      return Object.keys(value).length > expectedValue;
+    }
 
-  return false;
-};
+    return false;
+  }, "max");
 
 export const run = (...functions) => (value) => {
-  const result = functions.map((fn) => fn(value));
+  const result = functions.reduce(
+    (acc, fn) => ({
+      ...acc,
+      [fn.name]: fn(value),
+    }),
+    {}
+  );
 
   return result;
 };
