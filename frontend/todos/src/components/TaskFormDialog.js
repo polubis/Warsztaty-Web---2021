@@ -16,7 +16,7 @@ import { useState, useCallback, useMemo } from "react";
 import Loader from "../ui/Loader";
 import { mockApiCall } from "../utils/mockApiCall";
 import ColorPicker from "../ui/ColorPicker";
-import { required, min, max, run, translate } from "../utils/validators";
+import { required, min, max, run, translate, first } from "../utils/validators";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -40,39 +40,9 @@ const runNameValidation = run(required, min(3), max(10));
 const runDescriptionValidation = run(min(3), max(10));
 
 const validators = {
-  name: (name) => {
-    const result = runNameValidation(name);
-    console.log(t(result));
-
-    if (result.required) {
-      return "Field name is required";
-    }
-
-    if (result.min) {
-      return "Min characters  3";
-    }
-
-    if (result.max) {
-      return "Max characters 10";
-    }
-
-    return "";
-  },
-  description: (description) => {
-    if (description) {
-      const result = runDescriptionValidation(description);
-
-      if (result.min) {
-        return "Min characters 3";
-      }
-
-      if (result.max) {
-        return "Max characters 10";
-      }
-    }
-
-    return "";
-  },
+  name: (name) => first(t(runNameValidation(name))),
+  description: (description) =>
+    description ? first(t(runDescriptionValidation(description))) : "",
 };
 
 const TaskFormDialog = ({ onClose }) => {

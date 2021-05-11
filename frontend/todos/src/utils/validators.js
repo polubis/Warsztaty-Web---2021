@@ -84,3 +84,7 @@ export const run = (...functions) => (value) => {
 
   return result;
 };
+
+export const first = (translation) => {
+  return Object.values(translation).find((message) => message) ?? "";
+};
