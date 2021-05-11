@@ -30,19 +30,22 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+const runNameValidation = run(required, min(3), max(10));
+const runDescriptionValidation = run(min(3), max(10));
+
 const validators = {
   name: (name) => {
-    console.log(run(required, min(3))(name));
+    const result = runNameValidation(name);
 
-    if (required(name)) {
+    if (result.required) {
       return "Field name is required";
     }
 
-    if (min(3)(name)) {
+    if (result.min) {
       return "Min characters  3";
     }
 
-    if (max(10)(name)) {
+    if (result.max) {
       return "Max characters 10";
     }
 
@@ -50,11 +53,13 @@ const validators = {
   },
   description: (description) => {
     if (description) {
-      if (min(3)(description)) {
+      const result = runDescriptionValidation(description);
+
+      if (result.min) {
         return "Min characters 3";
       }
 
-      if (max(10)(description)) {
+      if (result.max) {
         return "Max characters 10";
       }
     }
