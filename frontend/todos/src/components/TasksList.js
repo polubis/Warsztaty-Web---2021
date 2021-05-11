@@ -67,7 +67,12 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const TasksList = ({ tasks, onTaskRemoveClick, onTaskStateClick }) => {
+const TasksList = ({
+  tasks,
+  onTaskRemoveClick,
+  onTaskStateClick,
+  onTaskEditClick,
+}) => {
   const [expandedItems, setExpandedItems] = useState({});
   const [anchor, setAnchor] = useState(null);
   const [activeTask, setActiveTask] = useState(null);
@@ -95,6 +100,12 @@ const TasksList = ({ tasks, onTaskRemoveClick, onTaskStateClick }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTask, onTaskRemoveClick]);
 
+  const handleTaskEditClick = useCallback(() => {
+    closeMenu();
+    onTaskEditClick(activeTask);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTask, onTaskEditClick]);
+
   const classes = useStyles();
 
   return (
@@ -106,7 +117,7 @@ const TasksList = ({ tasks, onTaskRemoveClick, onTaskStateClick }) => {
         onClose={closeMenu}
         TransitionComponent={Fade}
       >
-        <MenuItem className={classes.menuItem}>
+        <MenuItem className={classes.menuItem} onClick={handleTaskEditClick}>
           <EditIcon />
           <Typography variant="button">Edit</Typography>
         </MenuItem>

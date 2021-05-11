@@ -19,6 +19,7 @@ class TodosPage extends React.Component {
     taskStates: [],
     isDeleteTaskInProgress: false,
     taskToDeleteId: -1,
+    taskToEdit: null,
     isTaskFormDialogOpen: false,
   };
 
@@ -114,6 +115,10 @@ class TodosPage extends React.Component {
     }));
   };
 
+  setTaskToEdit = (task) => {
+    this.setState({ taskToEdit: task, isTaskFormDialogOpen: true });
+  };
+
   render() {
     const {
       loadingTasks,
@@ -123,14 +128,18 @@ class TodosPage extends React.Component {
       isDeleteTaskInProgress,
       taskToDeleteId,
       isTaskFormDialogOpen,
+      taskToEdit,
     } = this.state;
 
     const isDeleteTaskDialogOpen = taskToDeleteId > -1;
+
+    console.log(taskToEdit);
 
     return (
       <>
         {isTaskFormDialogOpen && (
           <TaskFormDialog
+            initFormData={taskToEdit}
             onClose={this.toggleIsTaskFormDialogOpen}
             onSuccess={this.onTaskFormDialogSuccess}
           />
@@ -156,6 +165,7 @@ class TodosPage extends React.Component {
             tasks={tasks}
             onTaskStateClick={this.handleTaskStateChange}
             onTaskRemoveClick={this.handleDeleteTaskDialogOpen}
+            onTaskEditClick={this.setTaskToEdit}
           />
         )}
       </>

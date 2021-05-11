@@ -46,17 +46,21 @@ const validators = {
     description ? first(t(runDescriptionValidation(description))) : "",
 };
 
-const TaskFormDialog = ({ onClose, onSuccess }) => {
+const TaskFormDialog = ({ initFormData, onClose, onSuccess }) => {
   const classes = useStyles();
 
   const [pending, setPending] = useState(false);
   const [formTouched, setFormTouched] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    color: "#000000",
-    background: "#ffffff",
-  });
+  const [formData, setFormData] = useState(
+    initFormData
+      ? { ...initFormData, color: "#000000", background: "#ffffff" }
+      : {
+          name: "",
+          description: "",
+          color: "#000000",
+          background: "#ffffff",
+        }
+  );
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -103,13 +107,19 @@ const TaskFormDialog = ({ onClose, onSuccess }) => {
     });
   }, [formData]);
 
+  const isEditionMode = !!initFormData;
+
   return (
     <Dialog open onClose={pending ? undefined : onClose}>
       {pending && <Loader />}
-      <DialogTitle>Create new task</DialogTitle>
+      <DialogTitle>
+        {isEditionMode ? `Edit ${initFormData.name} task` : "Create new task"}
+      </DialogTitle>
       <DialogContent className={classes.content}>
         <DialogContentText>
-          Populate required fields and create your task.
+          {isEditionMode
+            ? "Populate required fields and edit your task."
+            : "Populate required fields and create your task."}
         </DialogContentText>
 
         <FormControl fullWidth margin="dense">
