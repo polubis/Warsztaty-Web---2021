@@ -64,24 +64,96 @@ Zestaw zasad, wzorców, bibliotek, który ułatwia proces pisania aplikacji. Wyk
 
 Przykładem będzie np. `Angular` bądź `KnockoutJS`.
 
-## 4. Kurs HTML
+## 4. Tworzmy projekt
 
-Każda strona internetowa czy aplikacja webowa zaczyna się od dokumentu `html` - czyli plik z rozszerzeniem `.html`. W tym pliku tworzymy treść za pomocą znaczników, ale i również dajemy wskazówki przeglądarce co ma robić.
+### Wybor technologi
 
-O to przykład takiego pliku:
+Z racji tego, iz nasz projekt moze sie w przyszlosci rozrosnac oraz zalezy nam na szybkim developmencie musimy wybrac jakas bibliteke badz framework do pracy. Idealnym wyborem bedzie `React.js` oraz `MaterialUI`. `React` pozwoli nam na tworzenie reuzywalnych komponentow w aplikacji oraz latwe zarzadzanie jej stanem, logika. `MaterialUI` zawiera gotowe komponenty do urzycia jak formularze, okna, komunikaty, przyciski i wiele innych co rowniez znacznie przyspieszy nasza prace. Dodatkowo wspomniana biblioteka realizuje `Design system - Material Design`, ktory jest wykorzystywany w aplikacjach `Googla` i ma swietne wsparcie. 
 
+### Polecenie npx create-react-app
 
+Projekt React'a mozemy stworzyc samodzielnie, plik po pliku. Tak tez sie robi w wiekszych projektach. Jednak istniele skrypt stworzony przez spolecznosc, ktory pozwoli znacznie przyspieszyc proces tworzenia solucji. Wystarczy wpisac jedno polecnie.
+`npx create-react-app nazwa_aplikacji`. Zatem wpisz w terminal znajdujac sie w katalogu `frontend` polecenie, a nastepnie chwile poczekaj.
 
-## 5. Zaczynamy czyli dobór technologii do naszej aplikacji
+`npx create-react-app todo`
 
-Ze względu na to, że w przyszlości będzie istniała możliwość jej rozwoju to musimy dobrać odrazu odpowiednie technologie.
+Polecenie stworzy cala strukture aplikacji za nas oraz doda odpowiednie konfiguracje do formatowania, przestrzegania zasad w kodzie itp.
 
-Moglibyśmy napisać ją poprostu wykorzystując `HTML`, `CSS`, oraz `JavaScript` lecz w momencie zwiększenia liczby funkcjonalności, utrzymanie aplikacji mogłoby stać się cieżkie.
+### Omowienie struktury projektu
 
-Dodatkowo patrząc na wstępne wymagania aplikacji w głównym pliku `README`, możemy dojsc do wniosku, że aplikacja renderowana po stronie klienta będzie idealna.
+Po wykonaniu polecenia powinien pojawic sie w katalogu `frontend` kolejny katalog `todo`. Bedzie to nasza aplikacja i jej kod.
 
-Ze względu powyższe, wykorzystamy bibliotekę `ReactJS` oraz kilka innych technologii. 
+Znajduja sie tam nastepujace pliki:
 
+- `package.json` - plik sledzacy nasze zaleznosci projektowe, biblioteki z ktorych korzystamy podczas pracy nad projektem oraz w kodzie zrodlowym,
+- `package_lock.json` - plik sledzacy zaleznosci bibliotek, generowany automatycznie po poleceniu `npm install`, ktore sciaga kod bibliotek wylistowanych w pliku `package.json` pod kluczami `dependencies` oraz `devDependencies`,
+- `.gitignore` - zawiera reguly oraz nazwy plikow, ktore powinny byc pominiete podczas wypychania naszych zmian na gita,
+- `katalog src` - tam znajduje sie nasz kod aplikacji - tam bedzie pracowac,
+- `katalog node_modules` - kod zrodlowy bibliotek - nie interesuje Cie, jest generowany automatycznie,
+- `katalog public` - miejsce, w ktorym bedziesz umieszczal pliki jak zdjecia, favicon, konfiguracje i wiele innych. Narazie jest nie istotny.
 
+Efekt koncowy powinien wygladac tak jak w `zrzut1`.
 
+Aby uruchomic przygotowana aplikacje startowa nalezy uruchomic polecenia:
 
+`cd todo` - przejscie do katalogu `todo`,
+`npm start` - uruchamia skrypty stworzone przez spolecznosc, ktora uruchamia serwer developerski oraz publikuje tam nasz kod. Podczas zmian w kodzie, przegladarka bedzie sie odswiezac i pokazywac aktualny rezultat naszej pracy.
+
+Odpalona aplikacja powinna wygladac jak w `zrzut2`.
+
+### Omowienie plikow w katalogu src
+
+Katalog `src` zawiera kod zrodlowy naszej aplikacji.
+
+- `Plik index.js` - punkt startowy, `ReactDOM.render()` pozwala na umieszczenie naszych komponentow w konkretnym elemencie pliku `html` znajdujacego sie w katalogu `public`. 
+
+```js
+import React from 'react'; // w taki sposob importujemy fragment biblioteki
+import ReactDOM from 'react-dom';
+import './index.css'; // w taki sposob importujemy style
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App /> 
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+reportWebVitals();
+```
+
+- plik `index.css` - zawiera globalne style aplikacji,
+- plik `App.css` - zawiera style dla komponentu `App.js`,
+- plik `App.js` - zawiera kod `React` komponentu `App`.
+
+```js
+import logo from './logo.svg';
+import './App.css';
+
+function App() { // Deklaracja komponentu
+  return ( // Zawartosc komponentu w postaci znacznikow jsx
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+```
+
+React wykorzystuje `jsx` czyli polaczenia `html` oraz `javascript`, ktory znacznie upraszcza proces tworzenia interfejsu uzytkownika oraz logiki polaczonej z nim.
