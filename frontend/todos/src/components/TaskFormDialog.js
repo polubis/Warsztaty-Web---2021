@@ -17,6 +17,7 @@ import Loader from "../ui/Loader";
 import { mockApiCall } from "../utils/mockApiCall";
 import ColorPicker from "../ui/ColorPicker";
 import { required, min, max, run, translate, first } from "../utils/validators";
+import { TasksStates } from "../mocks/TasksStates";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -45,7 +46,7 @@ const validators = {
     description ? first(t(runDescriptionValidation(description))) : "",
 };
 
-const TaskFormDialog = ({ onClose }) => {
+const TaskFormDialog = ({ onClose, onSuccess }) => {
   const classes = useStyles();
 
   const [pending, setPending] = useState(false);
@@ -89,6 +90,16 @@ const TaskFormDialog = ({ onClose }) => {
 
     mockApiCall(formData).then(() => {
       setPending(false);
+      onSuccess({
+        id: 1001,
+        creationDate: "2021-02-01T00:00:00",
+        modificationDate: "2021-02-01T00:00:00",
+        name: formData.name,
+        fontColor: formData.color,
+        backgroundColor: formData.backgroundColor,
+        description: formData.description,
+        taskState: TasksStates[0],
+      });
     });
   }, [formData]);
 

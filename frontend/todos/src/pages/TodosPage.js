@@ -107,6 +107,13 @@ class TodosPage extends React.Component {
     }));
   };
 
+  onTaskFormDialogSuccess = (task) => {
+    this.setState((prevState) => ({
+      tasks: [...prevState.tasks, task],
+      isTaskFormDialogOpen: false,
+    }));
+  };
+
   render() {
     const {
       loadingTasks,
@@ -123,7 +130,10 @@ class TodosPage extends React.Component {
     return (
       <>
         {isTaskFormDialogOpen && (
-          <TaskFormDialog onClose={this.toggleIsTaskFormDialogOpen} />
+          <TaskFormDialog
+            onClose={this.toggleIsTaskFormDialogOpen}
+            onSuccess={this.onTaskFormDialogSuccess}
+          />
         )}
         <ConfirmationDialog
           open={isDeleteTaskDialogOpen}
