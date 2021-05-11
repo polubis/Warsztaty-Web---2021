@@ -16,7 +16,7 @@ import { useState, useCallback, useMemo } from "react";
 import Loader from "../ui/Loader";
 import { mockApiCall } from "../utils/mockApiCall";
 import ColorPicker from "../ui/ColorPicker";
-import { required, min, max, run } from "../utils/validators";
+import { required, min, max, run, translate } from "../utils/validators";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -30,12 +30,19 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+const t = translate({
+  required: "Field is required",
+  min: "Field must have atleast 3 characters",
+  max: "Field must have less than 10 characters",
+});
+
 const runNameValidation = run(required, min(3), max(10));
 const runDescriptionValidation = run(min(3), max(10));
 
 const validators = {
   name: (name) => {
     const result = runNameValidation(name);
+    console.log(t(result));
 
     if (result.required) {
       return "Field name is required";

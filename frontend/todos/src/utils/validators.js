@@ -6,6 +6,18 @@ const isNumber = (value) => typeof value === "number";
 
 const isFalsy = (value) => value === undefined || value === null;
 
+export const translate = (dictionary) => (result) => {
+  const translation = Object.entries(result).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [key]: value ? dictionary[key] : "",
+    }),
+    {}
+  );
+
+  return translation;
+};
+
 export const createValidator = (validator, name) => {
   Object.defineProperty(validator, "name", {
     value: name,
