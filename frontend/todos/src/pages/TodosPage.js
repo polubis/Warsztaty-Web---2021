@@ -10,6 +10,7 @@ import { TasksStates } from "../mocks/TasksStates";
 import ConfirmationDialog from "../ui/ConfirmationDialog";
 import { updateEntityById, filterEntitiesById } from "../utils/crud";
 import TaskFormDialog from "../components/TaskFormDialog";
+import TaskStateFormDialog from "../components/TaskStateFormDialog";
 
 class TodosPage extends React.Component {
   state = {
@@ -138,6 +139,12 @@ class TodosPage extends React.Component {
 
     return (
       <>
+        <TaskStateFormDialog
+          initFormData={null}
+          onClose={() => {}}
+          onSuccess={() => {}}
+        />
+
         {isTaskFormDialogOpen && (
           <TaskFormDialog
             initFormData={taskToEdit}
