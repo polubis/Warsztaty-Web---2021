@@ -17,12 +17,12 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const TaskStatesList = (props) => {
+const TaskStatesList = ({ states, onTaskStateEditClick }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.list}>
-      {props.states.map((state) => (
+      {states.map((state) => (
         <Chip
           key={state.id}
           className={classes.listItem}
@@ -31,6 +31,7 @@ const TaskStatesList = (props) => {
             color: state.fontColor,
             background: state.backgroundColor,
           }}
+          onClick={onTaskStateEditClick}
           onDelete={() => {}}
           deleteIcon={<EditIcon style={{ color: state.fontColor }} />}
         />

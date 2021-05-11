@@ -22,6 +22,8 @@ class TodosPage extends React.Component {
     taskToDeleteId: -1,
     taskToEdit: null,
     isTaskFormDialogOpen: false,
+    isTaskStateFormDialogOpen: false,
+    taskStateToEdit: null,
   };
 
   componentDidMount() {
@@ -121,6 +123,20 @@ class TodosPage extends React.Component {
     this.setState({ taskToEdit: task, isTaskFormDialogOpen: true });
   };
 
+  toggleIsTaskStateFormDialogOpen = () => {
+    this.setState((prevState) => ({
+      isTaskStateFormDialogOpen: !prevState.isTaskStateFormDialogOpen,
+      taskStateToEdit: null,
+    }));
+  };
+
+  setTaskStateToEdit = (taskState) => {
+    this.setState({
+      taskStateToEdit: taskState,
+      isTaskStateFormDialogOpen: true,
+    });
+  };
+
   render() {
     const {
       loadingTasks,
@@ -131,19 +147,21 @@ class TodosPage extends React.Component {
       taskToDeleteId,
       isTaskFormDialogOpen,
       taskToEdit,
+      isTaskStateFormDialogOpen,
+      taskStateToEdit,
     } = this.state;
 
     const isDeleteTaskDialogOpen = taskToDeleteId > -1;
 
-    console.log(taskToEdit);
-
     return (
       <>
-        <TaskStateFormDialog
-          initFormData={null}
-          onClose={() => {}}
-          onSuccess={() => {}}
-        />
+        {isTaskStateFormDialogOpen && (
+          <TaskStateFormDialog
+            initFormData={taskStateToEdit}
+            onClose={this.toggleIsTaskStateFormDialogOpen}
+            onSuccess={() => {}}
+          />
+        )}
 
         {isTaskFormDialogOpen && (
           <TaskFormDialog
@@ -160,11 +178,17 @@ class TodosPage extends React.Component {
           onClose={this.handleDeleteTaskDialogClose}
           onConfirm={this.handleDeleteTaskDialogConfirm}
         />
-        <TasksPageHeader onAddTaskClick={this.toggleIsTaskFormDialogOpen} />
+        <TasksPageHeader
+          onAddTaskClick={this.toggleIsTaskFormDialogOpen}
+          onAddTaskStateClick={this.toggleIsTaskStateFormDialogOpen}
+        />
         {loadingTaskStates ? (
           <TasksStatesLoader />
         ) : (
-          <TaskStatesList states={taskStates} />
+          <TaskStatesList
+            states={taskStates}
+            onTaskStateEditClick={this.setTaskStateToEdit}
+          />
         )}
         {loadingTasks ? (
           <TasksLoader />
