@@ -49,3 +49,9 @@ export const max = (expectedValue) => (value) => {
 
   return false;
 };
+
+export const run = (...functions) => (value) => {
+  const result = functions.map((fn) => fn(value));
+
+  return result;
+};
