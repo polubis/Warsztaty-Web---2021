@@ -105,6 +105,7 @@ class TodosPage extends React.Component {
   toggleIsTaskFormDialogOpen = () => {
     this.setState((prevState) => ({
       isTaskFormDialogOpen: !prevState.isTaskFormDialogOpen,
+      taskToEdit: null,
     }));
   };
 
